@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/7bf271c8b2.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+  <!-- Header Section -->
+  <header class="w-11/12 mx-auto max-w-screen-2xl flex justify-between items-center py-4">
+    <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-12">
+    <nav>
+      <ul class="hidden sm:flex space-x-8 text-gray-700">
+        <li><a href="#features" class="hover:text-black">Features</a></li>
+        <li><a href="#faq" class="hover:text-black">FAQ</a></li>
+        <li><a href="#contact" class="hover:text-black">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="/login" class="hidden sm:inline-block px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800">Login</a>
+    <i class="fa-solid fa-bars text-gray-700 sm:hidden cursor-pointer" onclick="openMenu()"></i>
+    <!-- Side Menu -->
+    <ul id="sideMenu"
+      class="flex sm:hidden flex-col gap-4 py-20 px-10 fixed -right-48 top-0 bottom-0 w-48 z-50 h-screen bg-gray-100 transition duration-500">
+      <div class="absolute right-6 top-6" onclick="closeMenu()">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <li><a href="#features" onclick="closeMenu()">Features</a></li>
+      <li><a href="#faq" onclick="closeMenu()">FAQ</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      <li><a href="/login" onclick="closeMenu()">Login</a></li>
+    </ul>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="w-11/12 mx-auto max-w-screen-2xl text-center py-16 px-4 bg-gray-200 rounded-lg">
+    <h1 class="text-4xl font-bold text-black">Organize Your Notes Effortlessly with Notum</h1>
+    <p class="mt-4 text-lg text-gray-600">Take control of your ideas, thoughts, and to-do lists in one minimal and
+      organized app.</p>
+    <a href="/register" class="mt-6 inline-block px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Get
+      Started</a>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="w-11/12 mx-auto max-w-screen-2xl py-16 px-4">
+    <h2 class="text-3xl font-semibold text-center text-black">Key Features</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <div class="p-6 bg-white shadow-lg rounded-lg">
+        <h3 class="text-xl font-bold text-black">Create & Manage Notes</h3>
+        <p class="mt-2 text-gray-600">Easily create, edit, pin, and delete your notes to keep everything organized.</p>
+      </div>
+      <div class="p-6 bg-white shadow-lg rounded-lg">
+        <h3 class="text-xl font-bold text-black">Recycle Bin</h3>
+        <p class="mt-2 text-gray-600">Deleted notes stay in the recycle bin for up to 30 days, so you never lose
+          anything important by accident.</p>
+      </div>
+      <div class="p-6 bg-white shadow-lg rounded-lg">
+        <h3 class="text-xl font-bold text-black">Secure Account</h3>
+        <p class="mt-2 text-gray-600">Change your password anytime and rest assured knowing your account is secure.</p>
+      </div>
+      <div class="p-6 bg-white shadow-lg rounded-lg">
+        <h3 class="text-xl font-bold text-black">Search Notes</h3>
+        <p class="mt-2 text-gray-600">Quickly find any note using the powerful search functionality by title or content.
+        </p>
+      </div>
+      <div class="p-6 bg-white shadow-lg rounded-lg">
+        <h3 class="text-xl font-bold text-black">Profile Management</h3>
+        <p class="mt-2 text-gray-600">Update your profile information easily and see changes immediately within your
+          session.</p>
+      </div>
+      <div class="p-6 bg-white shadow-lg rounded-lg">
+        <h3 class="text-xl font-bold text-black">Automatic Cleanup</h3>
+        <p class="mt-2 text-gray-600">Notes in the recycle bin are automatically deleted after 30 days, keeping your
+          workspace clean.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="w-11/12 mx-auto max-w-screen-2xl py-16 px-4">
+    <h2 class="text-3xl font-semibold text-center text-black">Frequently Asked Questions</h2>
+    <div class="mt-12 space-y-8">
+      <div class="bg-white shadow-lg p-6 rounded-lg">
+        <h3 class="text-xl font-bold text-black">How secure is my data on Notum?</h3>
+        <p class="mt-2 text-gray-600">Notum uses industry-standard encryption to keep your data safe. Your notes are
+          securely stored, and your account is protected with password authentication.</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg">
+        <h3 class="text-xl font-bold text-black">Can I recover deleted notes?</h3>
+        <p class="mt-2 text-gray-600">Yes, deleted notes are moved to the Recycle Bin and can be recovered within 30
+          days. After 30 days, they are permanently deleted.</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg">
+        <h3 class="text-xl font-bold text-black">Is there a mobile app for Notum?</h3>
+        <p class="mt-2 text-gray-600">Notum is fully responsive and works great on mobile browsers. We are also working
+          on launching a dedicated mobile app soon!</p>
+      </div>
+      <div class="bg-white shadow-lg p-6 rounded-lg">
+        <h3 class="text-xl font-bold text-black">How do I change my account password?</h3>
+        <p class="mt-2 text-gray-600">You can change your password from the profile section after logging in. Go to your
+          profile and select "Change Password" to update it securely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="w-11/12 mx-auto max-w-screen-2xl py-16 px-4 text-center">
+    <h2 class="text-3xl font-bold text-black">Ready to Organize Your Life?</h2>
+    <p class="mt-4 text-lg text-gray-600">Join Notum today and keep all your notes in one place.</p>
+    <a href="/register" class="mt-6 inline-block px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Create an
+      Account</a>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="mx-auto py-8 px-4 bg-gray-900 text-gray-400 text-center">
+    <p>&copy; 2024 Notum. All rights reserved.</p>
+    <p>Email: support@notumapp.com</p>
+  </footer>
+
+
+  <script>
+     // Side Menu
+     const sideMenu = document.querySelector("#sideMenu");
+        function openMenu() {
+            sideMenu.style.transform = "translateX(-12rem)";
+        }
+        function closeMenu() {
+            sideMenu.style.transform = "translateX(12rem)";
+        }
+  </script>
+</body>
+
+
+</html>

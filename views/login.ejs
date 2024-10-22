@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Notum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7bf271c8b2.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-11/12 mx-auto max-w-screen-2xl">
+        <div class="bg-white shadow-md rounded-lg p-8 max-w-md mx-auto">
+            <div class="flex justify-center mb-6">
+                <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-16">
+            </div>
+            <h2 class="text-center text-2xl font-semibold text-gray-800 mb-6">Welcome back to Notum</h2>
+
+            <form action="/login" method="POST">
+                <div class="mb-4">
+                    <input type="email" id="email" name="email" placeholder="Email" required
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800">
+                </div>
+                <div class="mb-6 relative">
+                    <input type="password" id="password" name="password" placeholder="Password" required
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800">
+                    <span id="togglePassword"
+                        class="absolute top-1/2 transform -translate-y-1/2 right-4 flex items-center cursor-pointer">
+                        <i class="fa-regular fa-eye-slash"></i>
+                    </span>
+                </div>
+                <button type="submit"
+                    class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
+                    Log in
+                </button>
+            </form>
+            <!-- Error message -->
+            <% if (typeof message !=='undefined' ) { %>
+                <p class="mt-2 text-red-500 text-sm"><i class="fa-solid fa-circle-exclamation mr-2"></i>
+                    <%= message %>
+                </p>
+                <% } %>
+
+                    <p class="mt-6 text-center text-gray-600">
+                        Don't have an account?
+                        <a href="/register" class="text-gray-800 font-semibold hover:underline">Sign up</a>
+                    </p>
+        </div>
+    </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            this.innerHTML = type === 'password' ? `
+        <i class="fa-regular fa-eye-slash"></i>
+      ` : `
+        <i class="fa-regular fa-eye"></i>
+      `;
+        });
+    </script>
+</body>
+
+</html>
