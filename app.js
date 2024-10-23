@@ -111,7 +111,7 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
 
     try {
         const notes = await query(
-            "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE ORDER BY updated_at DESC, pinned DESC",
+            "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE AND is_archived = FALSE ORDER BY updated_at DESC, pinned DESC",
             [userId],
         );
         res.render("dashboard", { user: req.session.user, notes });
@@ -167,6 +167,59 @@ app.post("/notes/:id/edit", isAuthenticated, async (req, res) => {
             [title, content, id, userId],
         );
         res.redirect("/dashboard");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+});
+
+// Route to display the archive page
+app.get("/archive", isAuthenticated, async (req, res) => {
+    const userId = req.session.user.id;
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - 30);
+
+    try {
+        const notes = await query(
+            "SELECT * FROM notes WHERE user_id = ? AND is_archived = TRUE ORDER BY id DESC",
+            [userId],
+        );
+
+        res.render("archive", { user: req.session.user, notes });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+});
+
+// Move a note to the Archive
+app.post("/notes/:id/archive", isAuthenticated, async (req, res) => {
+    const { id } = req.params;
+    const userId = req.session.user.id;
+
+    try {
+        await query(
+            "UPDATE notes SET is_archived = TRUE WHERE id = ? AND user_id = ?",
+            [id, userId],
+        );
+        res.redirect("/dashboard");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+});
+
+// Restore a note from the Archive
+app.post("/notes/:id/restore-archived", isAuthenticated, async (req, res) => {
+    const { id } = req.params;
+    const userId = req.session.user.id;
+
+    try {
+        await query(
+            "UPDATE notes SET is_archived = FALSE WHERE id = ? AND user_id = ?",
+            [id, userId],
+        );
+        res.redirect("/archive");
     } catch (err) {
         console.error(err);
         res.status(500).send("Server error");
