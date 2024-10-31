@@ -12,6 +12,7 @@ connection.connect((err) => {
         console.log("Error when connecting to DB:", err);
     }
     console.log("Connected to the database.");
+    console.log("Open your browser and go to http://localhost:3000");
 });
 
 module.exports = connection;
