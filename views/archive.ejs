@@ -72,27 +72,27 @@
             </form>
         </div>
         <div class="h-10"></div>
-        <div class="mx-auto max-w-screen-md columns-1 md:columns-2 space-y-4">
+        <div class="mx-auto w-11/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 
 
 
 
             <!-- note -->
             <% if (notes.length===0) { %>
-                <p class="text-gray-500">There is no note yet.</p>
+                <p class="text-gray-500 text-center col-span-full row-span-full">There is no note yet.</p>
                 <% } else { %>
                     <% notes.forEach(note=> { %>
                         <div
-                            class="note-item break-inside-avoid-column p-4 border border-gray-300 rounded-md grid grid-rows-auto">
+                            class="note-item p-4 border border-gray-300 rounded-md flex flex-col">
                             <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')"
-                                class="">
+                                class="flex flex-col flex-grow">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-1">
                                     <%= note.title %>
                                 </h3>
                                 <p class="text-gray-400 text-xs mb-2">
                                     <%= note.updated_at.toLocaleString() %>
                                 </p>
-                                <p class="text-gray-600 overflow-hidden line-clamp-6 text-sm ">
+                                <p class="text-gray-600 overflow-hidden line-clamp-3 text-sm flex-grow">
                                     <%- note.content %>
                                 </p>
                             </div>

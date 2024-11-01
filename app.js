@@ -110,7 +110,7 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
 
   try {
     const notes = await query(
-      "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE AND is_archived = FALSE ORDER BY updated_at DESC, pinned DESC",
+      "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE AND is_archived = FALSE ORDER BY pinned DESC, updated_at DESC",
       [userId],
     );
     const categories = await query(
@@ -146,7 +146,7 @@ app.get("/filter-notes", isAuthenticated, async (req, res) => {
        JOIN note_categories ON notes.id = note_categories.note_id
        WHERE notes.user_id = ? AND note_categories.category_id = ? 
        AND notes.is_deleted = FALSE AND notes.is_archived = FALSE
-       ORDER BY notes.updated_at DESC, notes.pinned DESC`,
+       ORDER BY notes.pinned DESC, notes.updated_at DESC`,
       [userId, categoryId],
     );
 
