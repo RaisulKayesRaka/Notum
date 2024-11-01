@@ -80,7 +80,8 @@
         <% } else { %>
           <% notes.forEach(note=> { %>
             <div class="note-item p-4 border border-gray-300 rounded-md flex flex-col">
-              <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')" class="flex flex-col flex-grow">
+              <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')"
+                class="flex flex-col flex-grow">
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">
                   <%= note.title %>
                 </h3>

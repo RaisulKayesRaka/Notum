@@ -53,10 +53,10 @@
                 </li>
                 <li>
                     <a href="/categories"
-                      class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
-                      <img src="./images/category-outline.png" alt="">
+                        class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+                        <img src="./images/category-outline.png" alt="">
                     </a>
-                  </li>
+                </li>
                 <li>
                     <a href="/logout"
                         class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
@@ -88,8 +88,7 @@
                 <p class="text-gray-500 text-center col-span-full row-span-full">There is no note yet.</p>
                 <% } else { %>
                     <% notes.forEach(note=> { %>
-                        <div
-                            class="note-item p-4 border border-gray-300 rounded-md flex flex-col">
+                        <div class="note-item p-4 border border-gray-300 rounded-md flex flex-col">
                             <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')"
                                 class="flex flex-col flex-grow">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-1">

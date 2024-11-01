@@ -1,218 +1,154 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile | Notum</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://kit.fontawesome.com/7bf271c8b2.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="shortcut icon" href="./images/notum-logo.svg" type="image/x-icon">
 
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | Notum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/7bf271c8b2.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="./images/notum-logo.svg" type="image/x-icon">
 
-  <body class="bg-gray-100">
-    <!-- Top Navbar -->
-    <nav class="sticky top-0 z-10 w-full bg-white">
-      <div class="flex h-12 items-center justify-between border-b p-4">
-        <button
-          onclick="document.querySelector('aside').classList.toggle('hidden')"
-        >
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <div class="flex items-center gap-3">
-          <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
-          <h3 class="text-3xl font-bold">Notum</h3>
-        </div>
-        <a href="/profile" title="<%= user.username %>">
-          <i class="fa-regular fa-user text-lg"></i>
-        </a>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Top Navbar -->
+  <nav class="sticky top-0 z-10 w-full bg-white">
+    <div class="flex h-12 items-center justify-between border-b p-4">
+      <button onclick="document.querySelector('aside').classList.toggle('hidden')">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="flex items-center gap-3">
+        <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
+        <h3 class="text-3xl font-bold">Notum</h3>
       </div>
+      <a href="/profile" title="<%= user.username %>">
+        <i class="fa-regular fa-user text-lg"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="fixed left-0 z-20 hidden h-full bg-white p-6">
+    <nav class="flex h-full flex-col items-center" aria-label="Sidebar Navigation">
+      <ul class="space-y-6">
+        <li>
+          <a href="/dashboard"
+            class="block h-8 w-8 transform rounded-lg bg-slate-100 p-2 transition duration-150 ease-in-out active:scale-95">
+            <img src="./images/home-outline.svg" alt="" />
+          </a>
+        </li>
+        <li>
+          <a href="/archive"
+            class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+            <img src="./images/archive-outline.png" alt="">
+          </a>
+        </li>
+        <li>
+          <a href="/recycle-bin"
+            class="block h-8 w-8 transform rounded-lg bg-slate-100 p-2 transition duration-150 ease-in-out active:scale-95">
+            <img src="./images/trash-outline.svg" alt="" />
+          </a>
+        </li>
+        <li>
+          <a href="/categories"
+            class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+            <img src="./images/category-outline.png" alt="">
+          </a>
+        </li>
+        <li>
+          <a href="/logout"
+            class="block h-8 w-8 transform rounded-lg bg-slate-100 p-2 transition duration-150 ease-in-out active:scale-95">
+            <img src="./images/logout.png" alt="" />
+          </a>
+        </li>
+      </ul>
     </nav>
+  </aside>
 
-    <!-- Sidebar -->
-    <aside class="fixed left-0 z-20 hidden h-full bg-white p-6">
-      <nav
-        class="flex h-full flex-col items-center"
-        aria-label="Sidebar Navigation"
-      >
-        <ul class="space-y-6">
-          <li>
-            <a
-              href="/dashboard"
-              class="block h-8 w-8 transform rounded-lg bg-slate-100 p-2 transition duration-150 ease-in-out active:scale-95"
-            >
-              <img src="./images/home-outline.svg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="/archive"
-              class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
-              <img src="./images/archive-outline.png" alt="">
-            </a>
-          </li>
-          <li>
-            <a
-              href="/recycle-bin"
-              class="block h-8 w-8 transform rounded-lg bg-slate-100 p-2 transition duration-150 ease-in-out active:scale-95"
-            >
-              <img src="./images/trash-outline.svg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="/categories"
-              class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
-              <img src="./images/category-outline.png" alt="">
-            </a>
-          </li>
-          <li>
-            <a
-              href="/logout"
-              class="block h-8 w-8 transform rounded-lg bg-slate-100 p-2 transition duration-150 ease-in-out active:scale-95"
-            >
-              <img src="./images/logout.png" alt="" />
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+  <!-- Main Content -->
+  <main class="mx-auto my-6 w-11/12 max-w-screen-sm">
+    <h1 class="mb-4 text-2xl font-semibold">Your Profile</h1>
 
-    <!-- Main Content -->
-    <main class="mx-auto my-6 w-11/12 max-w-screen-sm">
-      <h1 class="mb-4 text-2xl font-semibold">Your Profile</h1>
+    <p class="mb-2 text-lg">
+      Username: <span class="font-medium">
+        <%= user.username %>
+      </span>
+    </p>
+    <p class="mb-6 text-lg">
+      Email: <span class="font-medium">
+        <%= user.email %>
+      </span>
+    </p>
 
-      <p class="mb-2 text-lg">
-        Username: <span class="font-medium"> <%= user.username %> </span>
-      </p>
-      <p class="mb-6 text-lg">
-        Email: <span class="font-medium"> <%= user.email %> </span>
-      </p>
+    <!-- Update Profile Information -->
+    <h2 class="mb-4 text-xl font-semibold">Update Profile Information</h2>
+    <form action="/profile/update" method="post" class="mb-8 space-y-4">
+      <div>
+        <label for="username" class="block text-sm font-medium">Username:</label>
+        <input type="text" name="username" value="<%= user.username %>" required
+          class="w-full rounded-md border px-4 py-2 text-sm" />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium">Email:</label>
+        <input type="email" name="email" value="<%= user.email %>" required
+          class="w-full rounded-md border px-4 py-2 text-sm" />
+      </div>
+      <input type="submit" value="Update Profile"
+        class="cursor-pointer rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-700" />
+    </form>
 
-      <!-- Update Profile Information -->
-      <h2 class="mb-4 text-xl font-semibold">Update Profile Information</h2>
-      <form action="/profile/update" method="post" class="mb-8 space-y-4">
-        <div>
-          <label for="username" class="block text-sm font-medium"
-            >Username:</label
-          >
-          <input
-            type="text"
-            name="username"
-            value="<%= user.username %>"
-            required
-            class="w-full rounded-md border px-4 py-2 text-sm"
-          />
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium">Email:</label>
-          <input
-            type="email"
-            name="email"
-            value="<%= user.email %>"
-            required
-            class="w-full rounded-md border px-4 py-2 text-sm"
-          />
-        </div>
-        <input
-          type="submit"
-          value="Update Profile"
-          class="cursor-pointer rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-700"
-        />
-      </form>
+    <!-- Change Password -->
+    <h2 class="mb-4 text-xl font-semibold">Change Password</h2>
+    <form action="/profile/change-password" method="post" class="mb-8 space-y-4">
+      <div>
+        <label for="currentPassword" class="block text-sm font-medium">Current Password:</label>
+        <input type="password" name="currentPassword" required class="w-full rounded-md border px-4 py-2 text-sm" />
+      </div>
+      <div>
+        <label for="newPassword" class="block text-sm font-medium">New Password:</label>
+        <input type="password" name="newPassword" required class="w-full rounded-md border px-4 py-2 text-sm" />
+      </div>
+      <div>
+        <label for="confirmPassword" class="block text-sm font-medium">Confirm New Password:</label>
+        <input type="password" name="confirmPassword" required class="w-full rounded-md border px-4 py-2 text-sm" />
+      </div>
+      <input type="submit" value="Change Password"
+        class="cursor-pointer rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-700" />
+    </form>
 
-      <!-- Change Password -->
-      <h2 class="mb-4 text-xl font-semibold">Change Password</h2>
-      <form
-        action="/profile/change-password"
-        method="post"
-        class="mb-8 space-y-4"
-      >
-        <div>
-          <label for="currentPassword" class="block text-sm font-medium"
-            >Current Password:</label
-          >
-          <input
-            type="password"
-            name="currentPassword"
-            required
-            class="w-full rounded-md border px-4 py-2 text-sm"
-          />
-        </div>
-        <div>
-          <label for="newPassword" class="block text-sm font-medium"
-            >New Password:</label
-          >
-          <input
-            type="password"
-            name="newPassword"
-            required
-            class="w-full rounded-md border px-4 py-2 text-sm"
-          />
-        </div>
-        <div>
-          <label for="confirmPassword" class="block text-sm font-medium"
-            >Confirm New Password:</label
-          >
-          <input
-            type="password"
-            name="confirmPassword"
-            required
-            class="w-full rounded-md border px-4 py-2 text-sm"
-          />
-        </div>
-        <input
-          type="submit"
-          value="Change Password"
-          class="cursor-pointer rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-700"
-        />
-      </form>
+    <!-- Delete Account -->
+    <h2 class="mb-4 text-xl font-semibold">Delete Account</h2>
+    <form action="/profile/delete-account" method="post"
+      onsubmit="return confirm('Are you sure you want to delete your account? This action is irreversible.');"
+      class="space-y-4">
+      <div>
+        <label for="password" class="block text-sm font-medium">Enter your password to confirm:</label>
+        <input type="password" name="password" required class="w-full rounded-md border px-4 py-2 text-sm" />
+      </div>
+      <input type="submit" value="Delete Account"
+        class="cursor-pointer rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-700" />
+    </form>
+  </main>
 
-      <!-- Delete Account -->
-      <h2 class="mb-4 text-xl font-semibold">Delete Account</h2>
-      <form
-        action="/profile/delete-account"
-        method="post"
-        onsubmit="return confirm('Are you sure you want to delete your account? This action is irreversible.');"
-        class="space-y-4"
-      >
-        <div>
-          <label for="password" class="block text-sm font-medium"
-            >Enter your password to confirm:</label
-          >
-          <input
-            type="password"
-            name="password"
-            required
-            class="w-full rounded-md border px-4 py-2 text-sm"
-          />
-        </div>
-        <input
-          type="submit"
-          value="Delete Account"
-          class="cursor-pointer rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-700"
-        />
-      </form>
-    </main>
+  <!-- Password Validation Script -->
+  <script>
+    document
+      .querySelector("form[action='/profile/change-password']")
+      .addEventListener("submit", function (e) {
+        const newPassword = document.querySelector(
+          "input[name='newPassword']",
+        ).value;
+        const confirmPassword = document.querySelector(
+          "input[name='confirmPassword']",
+        ).value;
 
-    <!-- Password Validation Script -->
-    <script>
-      document
-        .querySelector("form[action='/profile/change-password']")
-        .addEventListener("submit", function (e) {
-          const newPassword = document.querySelector(
-            "input[name='newPassword']",
-          ).value;
-          const confirmPassword = document.querySelector(
-            "input[name='confirmPassword']",
-          ).value;
+        if (newPassword !== confirmPassword) {
+          e.preventDefault();
+          alert("New password and confirmation password do not match.");
+        }
+      });
+  </script>
+</body>
 
-          if (newPassword !== confirmPassword) {
-            e.preventDefault();
-            alert("New password and confirmation password do not match.");
-          }
-        });
-    </script>
-  </body>
 </html>

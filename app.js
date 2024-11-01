@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 const db = require("./db");
 
+
 const app = express();
 const PORT = 3000;
 
@@ -261,7 +262,7 @@ app.get("/categories", isAuthenticated, async (req, res) => {
 
 // Route for creating a new category
 app.post("/categories", isAuthenticated, async (req, res) => {
-  const { category_name } = req.body;  
+  const { category_name } = req.body;
   const userId = req.session.user.id;
   try {
     const categoryResult = await query(
@@ -298,10 +299,10 @@ app.post("/categories/:id/delete", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
 
   try {
-    await query(
-      "DELETE FROM categories WHERE id = ? AND user_id = ?",
-      [id, userId],
-    );
+    await query("DELETE FROM categories WHERE id = ? AND user_id = ?", [
+      id,
+      userId,
+    ]);
     res.redirect("/categories");
   } catch (err) {
     console.error(err);
@@ -396,7 +397,6 @@ app.post("/notes/:id/restore", isAuthenticated, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 
 // Permanently delete a note
 app.post("/notes/:id/permanent-delete", isAuthenticated, async (req, res) => {
