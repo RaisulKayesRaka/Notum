@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category | Notum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7bf271c8b2.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./images/notum-logo.svg" type="image/x-icon">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Top Navbar -->
+    <nav class="bg-white sticky w-full top-0 z-10">
+        <div class="p-4 flex justify-between items-center border-b h-12">
+            <button onclick="document.querySelector('aside').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
+                <h3 class="text-3xl font-bold">Notum</h3>
+            </div>
+            <a href="/profile" title="<%= user.username %>">
+                <i class="fa-regular fa-user text-lg"></i>
+            </a>
+        </div>
+
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="bg-white fixed left-0 h-full p-6 z-20 hidden">
+        <nav class="flex flex-col items-center h-full" aria-label="Sidebar Navigation">
+            <ul class="space-y-6">
+                <li>
+                    <a href="/dashboard"
+                        class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+                        <img src="./images/home-outline.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/archive"
+                        class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+                        <img src="./images/archive-outline.png" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/recycle-bin"
+                        class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+                        <img src="./images/trash-outline.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/categories"
+                      class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+                      <img src="./images/category-filled.png" alt="">
+                    </a>
+                  </li>
+                <li>
+                    <a href="/logout"
+                        class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
+                        <img src="./images/logout.png" alt="">
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="w-11/12 mx-auto">
+        <div class="flex justify-between items-center flex-wrap gap-4">
+            <h1 class="text-2xl font-bold mt-4">Categories</h1>
+            <form action="/categories" method="POST" class="mt-4 flex items-center justify-center">
+                <input type="text" name="category_name" placeholder="Add new category" class="px-3 py-1 rounded-s-md bg-white">
+                <button type="submit" class="px-3 py-1 rounded-e-md text-white bg-gray-900">Add</button>
+            </form>
+        </div>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-8">
+            <% categories.forEach(category=> { %>
+                <div class="relative bg-gray-50 border flex justify-center items-center rounded-lg group"
+                    title="Click to edit">
+                    <div class="text-gray-700 p-3">
+                        <form action="/categories/<%= category.id %>/update" method="POST" onchange="submit(this)">
+                            <div class="flex gap-2 justify-center items-center p-2">
+                                <i class="fa-solid fa-tag text-gray-700"></i>
+                                <input type="text" name="category_name" value="<%= category.category_name %>"
+                                    class="inline-block w-full text-center bg-transparent text-gray-700 font-semibold">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="absolute -top-2 -right-2 group-hover:block hidden">
+                        <form action="/categories/<%= category.id %>/delete" method="POST">
+                            <button type="submit" class=" text-red-500"><i
+                                    class="fa-solid fa-circle-xmark"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </main>
+
+</body>
+
+</html>

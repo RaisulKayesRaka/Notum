@@ -244,6 +244,71 @@ app.post("/notes/:id/edit", isAuthenticated, async (req, res) => {
   }
 });
 
+// Route for categories
+app.get("/categories", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+  try {
+    const categories = await query(
+      "SELECT * FROM categories WHERE user_id = ?",
+      [userId],
+    );
+    res.render("categories", { user: req.session.user, categories });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for creating a new category
+app.post("/categories", isAuthenticated, async (req, res) => {
+  const { category_name } = req.body;  
+  const userId = req.session.user.id;
+  try {
+    const categoryResult = await query(
+      "INSERT INTO categories (user_id, category_name) VALUES (?, ?)",
+      [userId, category_name],
+    );
+    res.redirect("/categories");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for updating a category
+app.post("/categories/:id/update", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const { category_name } = req.body;
+  const userId = req.session.user.id;
+  try {
+    await query(
+      "UPDATE categories SET category_name = ? WHERE id = ? AND user_id = ?",
+      [category_name, id, userId],
+    );
+    res.redirect("/categories");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for deleting a category
+app.post("/categories/:id/delete", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.session.user.id;
+
+  try {
+    await query(
+      "DELETE FROM categories WHERE id = ? AND user_id = ?",
+      [id, userId],
+    );
+    res.redirect("/categories");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // Route to display the archive page
 app.get("/archive", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
@@ -331,6 +396,7 @@ app.post("/notes/:id/restore", isAuthenticated, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
 
 // Permanently delete a note
 app.post("/notes/:id/permanent-delete", isAuthenticated, async (req, res) => {
