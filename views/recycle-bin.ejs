@@ -19,7 +19,10 @@
       <button onclick="document.querySelector('aside').classList.toggle('hidden')">
         <i class="fa-solid fa-bars"></i>
       </button>
-      <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
+      <div class="flex items-center gap-3">
+        <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
+        <h3 class="text-3xl font-bold">Notum</h3>
+      </div>
       <a href="/profile" title="<%= user.username %>">
         <i class="fa-regular fa-user text-lg"></i>
       </a>
@@ -67,7 +70,7 @@
 
       <!-- note -->
       <% if (notes.length===0) { %>
-        <p>No notes in Recycle Bin.</p>
+        <p class="">No notes in Recycle Bin.</p>
         <% } else { %>
           <% notes.forEach(note=> { %>
             <div class="note-item break-inside-avoid-column p-4 border border-gray-300 rounded-md grid grid-rows-auto">

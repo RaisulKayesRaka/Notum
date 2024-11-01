@@ -121,9 +121,46 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
     const note_categories = await query(
       "SELECT * FROM note_categories WHERE note_id IN (SELECT id FROM notes WHERE user_id = ?)",
       [userId],
-    )
+    );
 
-    res.render("dashboard", { user: req.session.user, notes, categories, note_categories });
+    res.render("dashboard", {
+      user: req.session.user,
+      notes,
+      categories,
+      note_categories,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for filtering notes by category
+app.get("/filter-notes", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+  const categoryId = req.query.category; // Get the selected category ID from the query parameters
+
+  try {
+    const notes = await query(
+      `SELECT notes.* FROM notes 
+       JOIN note_categories ON notes.id = note_categories.note_id
+       WHERE notes.user_id = ? AND note_categories.category_id = ? 
+       AND notes.is_deleted = FALSE AND notes.is_archived = FALSE
+       ORDER BY notes.updated_at DESC, notes.pinned DESC`,
+      [userId, categoryId],
+    );
+
+    const categories = await query(
+      "SELECT * FROM categories WHERE user_id = ?",
+      [userId],
+    );
+
+    res.render("dashboard", {
+      user: req.session.user,
+      notes,
+      categories,
+      note_categories: [],
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");

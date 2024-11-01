@@ -18,7 +18,10 @@
       <button onclick="document.querySelector('aside').classList.toggle('hidden')">
         <i class="fa-solid fa-bars"></i>
       </button>
-      <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
+      <div class="flex items-center gap-3">
+        <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
+        <h3 class="text-3xl font-bold">Notum</h3>
+      </div>
       <a href="/profile" title="<%= user.username %>">
         <i class="fa-regular fa-user text-lg"></i>
       </a>
@@ -62,17 +65,29 @@
 
   <!-- Main Content -->
   <main class="w-11/12 mx-auto">
-    <div class="mx-auto max-w-screen-sm sticky top-16">
+    <div class="mx-auto max-w-screen-md sticky top-16">
       <form id="searchForm">
         <input type="text" id="searchInput" name="search" onkeyup="filterNotes()" placeholder="Search notes..."
           class="w-full px-4 py-2 border rounded-md text-sm" />
       </form>
     </div>
     <div class="h-10"></div>
+    <!-- category filter -->
+    <div class="mx-auto max-w-screen-md mb-4">
+      <form onchange="submit(this)" action="/filter-notes" method="GET" class="flex gap-4">
+        <select name="category" required class="flex-1 px-4 py-2 border rounded-md text-sm">
+          <option value="">Select a category</option>
+          <% categories.forEach(category=> { %>
+            <option value="<%= category.id %>">
+              <%= category.category_name %>
+            </option>
+            <% }); %>
+        </select>
+        <a href="/dashboard" class="inline-block bg-gray-900 text-white px-4 py-2 rounded-md text-sm">Show All Notes</a>
+      </form>
+    </div>
+
     <div class="mx-auto max-w-screen-md columns-1 md:columns-2 space-y-4">
-
-
-
 
       <!-- note -->
       <% if (notes.length===0) { %>
@@ -80,7 +95,8 @@
         <% } else { %>
           <% notes.forEach(note=> { %>
             <div class="note-item break-inside-avoid-column p-4 border border-gray-300 rounded-md grid grid-rows-auto">
-              <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')" class="flex flex-col">
+              <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')"
+                class="flex flex-col">
                 <h3 class="note-title text-lg font-semibold text-gray-900 mb-1">
                   <%= note.title %>
                 </h3>
@@ -92,14 +108,16 @@
                 </p>
                 <div class="space-x-2">
                   <% if (categories) { %>
-                    <% categories.forEach(category => { %>
-                      <% note_categories.forEach(note_category => { %>
-                        <% if (note_category.category_id === category.id && note_category.note_id === note.id) { %>
-                      <span class="bg-gray-200 text-sm border rounded-full px-3 py-1"><%= category.category_name %></span>
-                        <% } %>
-                      <% }) %>
-                    <% }) %>
-                  <% } %>
+                    <% categories.forEach(category=> { %>
+                      <% note_categories.forEach(note_category=> { %>
+                        <% if (note_category.category_id===category.id && note_category.note_id===note.id) { %>
+                          <span class="bg-gray-200 text-sm border rounded-full px-3 py-1">
+                            <%= category.category_name %>
+                          </span>
+                          <% } %>
+                            <% }) %>
+                              <% }) %>
+                                <% } %>
                 </div>
               </div>
               <!-- Note popup -->
@@ -120,14 +138,16 @@
                 </p>
                 <div class="space-x-2">
                   <% if (categories) { %>
-                    <% categories.forEach(category => { %>
-                      <% note_categories.forEach(note_category => { %>
-                        <% if (note_category.category_id === category.id && note_category.note_id === note.id) { %>
-                      <span class="bg-gray-200 text-sm border rounded-full px-3 py-1"><%= category.category_name %></span>
-                        <% } %>
-                      <% }) %>
-                    <% }) %>
-                  <% } %>
+                    <% categories.forEach(category=> { %>
+                      <% note_categories.forEach(note_category=> { %>
+                        <% if (note_category.category_id===category.id && note_category.note_id===note.id) { %>
+                          <span class="bg-gray-200 text-sm border rounded-full px-3 py-1">
+                            <%= category.category_name %>
+                          </span>
+                          <% } %>
+                            <% }) %>
+                              <% }) %>
+                                <% } %>
                 </div>
 
 
@@ -189,8 +209,10 @@
         <div id="category-input">
         </div>
         <div class="flex gap-4">
-          <input type="text" id="add-category" placeholder="Add category" class="w-full px-4 py-2 border rounded-md text-sm">
-          <button type="button" id="add-category-btn" class="px-4 py-2 border rounded-md text-sm"><i class="fa-solid fa-plus"></i></button>
+          <input type="text" id="add-category" placeholder="Add category"
+            class="w-full px-4 py-2 border rounded-md text-sm">
+          <button type="button" id="add-category-btn" class="px-4 py-2 border rounded-md text-sm"><i
+              class="fa-solid fa-plus"></i></button>
         </div>
         <div class="flex gap-4">
           <input type="submit" value="Add" class="w-full px-4 py-2 border rounded-md text-sm" />
