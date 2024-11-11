@@ -22,8 +22,8 @@
         <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
         <h3 class="text-3xl font-bold">Notum</h3>
       </div>
-      <a href="/profile" title="<%= user.username %>">
-        <i class="fa-regular fa-user text-lg"></i>
+      <a href="/profile" title="<%= user.username %>" class="flex items-center gap-2 border rounded-full p-1">
+        <img src="https://robohash.org/<%= user.id %>.png?size=200x200" alt="" class="w-7 h-7 rounded-full">
       </a>
     </div>
 
@@ -33,31 +33,31 @@
   <aside class="bg-white fixed left-0 h-full p-6 z-20 hidden">
     <nav class="flex flex-col items-center h-full" aria-label="Sidebar Navigation">
       <ul class="space-y-6">
-        <li>
+        <li title="Dashboard">
           <a href="/dashboard"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/home-filled.svg" alt="">
           </a>
         </li>
-        <li>
+        <li title="Archive">
           <a href="/archive"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/archive-outline.png" alt="">
           </a>
         </li>
-        <li>
+        <li title="Recycle Bin">
           <a href="/recycle-bin"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/trash-outline.svg" alt="">
           </a>
         </li>
-        <li>
+        <li title="Categories">
           <a href="/categories"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/category-outline.png" alt="">
           </a>
         </li>
-        <li>
+        <li title="Logout">
           <a href="/logout"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/logout.png" alt="">
@@ -100,7 +100,7 @@
         <p class="text-gray-500 text-center col-span-full row-span-full">There is no note yet.</p>
         <% } else { %>
           <% notes.forEach(note=> { %>
-            <div class="note-item p-4 border border-gray-300 rounded-md flex flex-col">
+            <div class="note-item p-4 border border-gray-300 bg-white/90 rounded-md flex flex-col">
               <div onclick="document.querySelector('#Note-Popup-<%= note.id %>').classList.remove('scale-0')"
                 class="flex flex-col flex-grow">
                 <h3 class="note-title text-lg font-semibold text-gray-900 mb-1">
@@ -139,7 +139,7 @@
                 <p class="text-gray-400 text-xs mb-2">
                   <%= note.updated_at.toLocaleString() %>
                 </p>
-                <p class="text-gray-600 overflow-auto text-sm mb-3">
+                <p class="text-gray-600 overflow-auto text-sm mb-3 min-h-40">
                   <%- note.content %>
                 </p>
                 <div class="space-x-2">

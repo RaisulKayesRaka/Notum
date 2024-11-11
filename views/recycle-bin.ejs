@@ -23,8 +23,8 @@
         <img src="./images/notum-logo.svg" alt="Notum Logo" class="h-6 w-6">
         <h3 class="text-3xl font-bold">Notum</h3>
       </div>
-      <a href="/profile" title="<%= user.username %>">
-        <i class="fa-regular fa-user text-lg"></i>
+      <a href="/profile" title="<%= user.username %>" class="flex items-center gap-2 border rounded-full p-1">
+        <img src="https://robohash.org/<%= user.id %>.png?size=200x200" alt="" class="w-7 h-7 rounded-full">
       </a>
     </div>
 
@@ -34,31 +34,31 @@
   <aside class="bg-white fixed left-0 h-full p-6 z-20 hidden">
     <nav class="flex flex-col items-center h-full" aria-label="Sidebar Navigation">
       <ul class="space-y-6">
-        <li>
+        <li title="Dashboard">
           <a href="/dashboard"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/home-outline.svg" alt="">
           </a>
         </li>
-        <li>
+        <li title="Archive">
           <a href="/archive"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/archive-outline.png" alt="">
           </a>
         </li>
-        <li>
+        <li title="Recycle Bin">
           <a href="/recycle-bin"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/trash-filled.svg" alt="">
           </a>
         </li>
-        <li>
+        <li title="Categories">
           <a href="/categories"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/category-outline.png" alt="">
           </a>
         </li>
-        <li>
+        <li title="Logout">
           <a href="/logout"
             class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
             <img src="./images/logout.png" alt="">
