@@ -43,11 +43,17 @@
                     <%= message %>
                 </p>
                 <% } %>
+                    <% if (typeof successMessage !=='undefined' ) { %>
+                        <p class="mt-2 text-green-500 text-sm"><i class="fa-solid fa-circle-check mr-2"></i>
+                            <%= successMessage %>
+                        </p>
+                        <% } %>
 
-                    <p class="mt-6 text-center text-gray-600">
-                        Don't have an account?
-                        <a href="/register" class="text-gray-800 font-semibold hover:underline">Sign up</a>
-                    </p>
+
+                            <p class="mt-6 text-center text-gray-600">
+                                Don't have an account?
+                                <a href="/register" class="text-gray-800 font-semibold hover:underline">Sign up</a>
+                            </p>
         </div>
     </div>
 

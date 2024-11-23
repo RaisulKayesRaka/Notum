@@ -66,7 +66,9 @@ app.post("/register", async (req, res) => {
         "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
         [username, email, hashedPassword],
       );
-      res.redirect("/login");
+      res.render("login", {
+        successMessage: "Registration successful. Please log in.",
+      });
     }
   } catch (err) {
     console.error(err);
@@ -109,10 +111,6 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
 
   try {
-    // const notes = await query(
-    //   "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE AND is_archived = FALSE ORDER BY pinned DESC, updated_at DESC",
-    //   [userId],
-    // );
     const notes = await query(
       "SELECT * FROM active_notes WHERE user_id = ? ORDER BY pinned DESC, updated_at DESC",
       [userId],
@@ -321,10 +319,6 @@ app.get("/archive", isAuthenticated, async (req, res) => {
   cutoffDate.setDate(cutoffDate.getDate() - 30);
 
   try {
-    // const notes = await query(
-    //   "SELECT * FROM notes WHERE user_id = ? AND is_archived = TRUE ORDER BY id DESC",
-    //   [userId],
-    // );
     const notes = await query(
       "SELECT * FROM archived_notes WHERE user_id = ? ORDER BY id DESC",
       [userId],
@@ -431,11 +425,6 @@ app.get("/recycle-bin", isAuthenticated, async (req, res) => {
       "DELETE FROM notes WHERE user_id = ? AND is_deleted = TRUE AND deleted_at <= ?",
       [userId, cutoffDate],
     );
-
-    // const notes = await query(
-    //   "SELECT * FROM notes WHERE user_id = ? AND is_deleted = TRUE ORDER BY id DESC",
-    //   [userId],
-    // );
 
     const notes = await query(
       "SELECT * FROM deleted_notes WHERE user_id = ? ORDER BY id DESC",
