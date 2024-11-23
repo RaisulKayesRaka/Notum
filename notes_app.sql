@@ -40,3 +40,33 @@ CREATE TABLE note_categories (
         REFERENCES categories (id)
         ON DELETE CASCADE
 );
+
+CREATE VIEW active_notes AS
+    SELECT 
+        *
+    FROM
+        notes
+    WHERE
+        is_deleted = FALSE
+            AND is_archived = FALSE;
+
+CREATE VIEW archived_notes AS
+    SELECT 
+        *
+    FROM
+        notes
+    WHERE
+        is_archived = TRUE;
+
+CREATE VIEW deleted_notes AS
+    SELECT 
+        *
+    FROM
+        notes
+    WHERE
+        is_deleted = TRUE;
+
+CREATE 
+    TRIGGER  before_note_update
+ BEFORE UPDATE ON notes FOR EACH ROW 
+    SET NEW . updated_at = NOW();

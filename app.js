@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 const db = require("./db");
 
-
 const app = express();
 const PORT = 3000;
 
@@ -110,10 +109,15 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
 
   try {
+    // const notes = await query(
+    //   "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE AND is_archived = FALSE ORDER BY pinned DESC, updated_at DESC",
+    //   [userId],
+    // );
     const notes = await query(
-      "SELECT * FROM notes WHERE user_id = ? AND is_deleted = FALSE AND is_archived = FALSE ORDER BY pinned DESC, updated_at DESC",
+      "SELECT * FROM active_notes WHERE user_id = ? ORDER BY pinned DESC, updated_at DESC",
       [userId],
     );
+
     const categories = await query(
       "SELECT * FROM categories WHERE user_id = ?",
       [userId],
@@ -139,7 +143,7 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
 // Route for filtering notes by category
 app.get("/filter-notes", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
-  const categoryId = req.query.category; // Get the selected category ID from the query parameters
+  const categoryId = req.query.category;
 
   try {
     const notes = await query(
@@ -235,7 +239,7 @@ app.post("/notes/:id/edit", isAuthenticated, async (req, res) => {
 
   try {
     await query(
-      "UPDATE notes SET title = ?, content = ?, updated_at = NOW() WHERE id = ? AND user_id = ?",
+      "UPDATE notes SET title = ?, content = ? WHERE id = ? AND user_id = ?",
       [title, content, id, userId],
     );
     res.redirect("/dashboard");
@@ -317,8 +321,12 @@ app.get("/archive", isAuthenticated, async (req, res) => {
   cutoffDate.setDate(cutoffDate.getDate() - 30);
 
   try {
+    // const notes = await query(
+    //   "SELECT * FROM notes WHERE user_id = ? AND is_archived = TRUE ORDER BY id DESC",
+    //   [userId],
+    // );
     const notes = await query(
-      "SELECT * FROM notes WHERE user_id = ? AND is_archived = TRUE ORDER BY id DESC",
+      "SELECT * FROM archived_notes WHERE user_id = ? ORDER BY id DESC",
       [userId],
     );
 
@@ -424,8 +432,13 @@ app.get("/recycle-bin", isAuthenticated, async (req, res) => {
       [userId, cutoffDate],
     );
 
+    // const notes = await query(
+    //   "SELECT * FROM notes WHERE user_id = ? AND is_deleted = TRUE ORDER BY id DESC",
+    //   [userId],
+    // );
+
     const notes = await query(
-      "SELECT * FROM notes WHERE user_id = ? AND is_deleted = TRUE ORDER BY id DESC",
+      "SELECT * FROM deleted_notes WHERE user_id = ? ORDER BY id DESC",
       [userId],
     );
 
@@ -453,7 +466,6 @@ app.post("/profile/update", isAuthenticated, async (req, res) => {
       userId,
     ]);
 
-    // Update session information
     req.session.user.username = newUsername;
     req.session.user.email = newEmail;
 
