@@ -85,11 +85,12 @@
             </form>
             <ul class="mt-4">
                 <% todos.forEach(todo=> { %>
-                    <li class="flex justify-between items-center border-b py-2">
+                    <li class="flex justify-between items-center border-b py-2 gap-4">
 
-                        <form action="/todo/<%= todo.id %>/update" method="POST" class="inline" onchange="submit(this)">
+                        <form action="/todo/<%= todo.id %>/update" method="POST" class="block w-full"
+                            onchange="submit(this)">
                             <input type="text" name="task" value="<%= todo.task %>"
-                                class="inline-block w-full bg-transparent outline-none">
+                                class="w-full bg-transparent outline-none">
                         </form>
                         <div class="flex justify-center items-center gap-4">
                             <form action="/todo/<%= todo.id %>/toggle" method="POST" class="inline">
