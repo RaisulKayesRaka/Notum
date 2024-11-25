@@ -51,7 +51,15 @@ app.get("/register", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    res.render("register", {
+      message: "Password and confirm password do not match.",
+    });
+    return;
+  }
+
   const hashedPassword = await bcrypt.hash(password, 8);
 
   try {
