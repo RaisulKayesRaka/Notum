@@ -6,7 +6,7 @@ const path = require("path");
 const db = require("./db");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Set up middleware
 app.use(express.static(path.join(__dirname, "public")));
@@ -314,6 +314,94 @@ app.post("/categories/:id/delete", isAuthenticated, async (req, res) => {
       userId,
     ]);
     res.redirect("/categories");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+//Route for Todo list
+app.get("/todo", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+  try {
+    const todos = await query(
+      "SELECT * FROM todos WHERE user_id = ? AND is_completed = 0",
+      [userId],
+    );
+
+    const completedTodos = await query(
+      "SELECT * FROM todos WHERE user_id = ? AND is_completed = 1",
+      [userId],
+    );
+
+    res.render("todo", { user: req.session.user, todos, completedTodos });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for creating a new todo
+app.post("/todo", isAuthenticated, async (req, res) => {
+  const { task } = req.body;
+  const userId = req.session.user.id;
+  try {
+    await query("INSERT INTO todos (user_id, task) VALUES (?, ?)", [
+      userId,
+      task,
+    ]);
+    res.redirect("/todo");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for deleting a todo
+app.post("/todo/:id/delete", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.session.user.id;
+
+  try {
+    await query("DELETE FROM todos WHERE id = ? AND user_id = ?", [id, userId]);
+    res.redirect("/todo");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for updating a todo
+app.post("/todo/:id/update", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const { task } = req.body;
+  const userId = req.session.user.id;
+
+  try {
+    await query("UPDATE todos SET task = ? WHERE id = ? AND user_id = ?", [
+      task,
+      id,
+      userId,
+    ]);
+    res.redirect("/todo");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Route for toggling a todo
+app.post("/todo/:id/toggle", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const { task } = req.body;
+  const userId = req.session.user.id;
+
+  try {
+    await query(
+      "UPDATE todos SET is_completed = NOT is_completed WHERE id = ? AND user_id = ?",
+      [id, userId],
+    );
+    res.redirect("/todo");
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");

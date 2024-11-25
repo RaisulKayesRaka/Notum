@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category | Notum</title>
+    <title>Dashboard | Notum</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/7bf271c8b2.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="./images/notum-logo.svg" type="image/x-icon">
@@ -54,13 +54,13 @@
                 <li title="Categories">
                     <a href="/categories"
                         class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
-                        <img src="./images/category-filled.png" alt="">
+                        <img src="./images/category-outline.png" alt="">
                     </a>
                 </li>
                 <li title="Todo">
                     <a href="/todo"
                         class="w-8 h-8 p-2 bg-slate-100 rounded-lg block transform active:scale-95 transition duration-150 ease-in-out">
-                        <img src="./images/checked-checkbox-outline.png" alt="">
+                        <img src="./images/checked-checkbox-filled.png" alt="">
                     </a>
                 </li>
                 <li title="Logout">
@@ -77,37 +77,64 @@
 
     <!-- Main Content -->
     <main class="w-11/12 mx-auto">
-        <div class="flex justify-between items-center flex-wrap gap-4">
-            <h1 class="text-2xl font-bold mt-4">Categories</h1>
-            <form action="/categories" method="POST" class="mt-4 flex items-center justify-center">
-                <input type="text" name="category_name" placeholder="Add new category"
-                    class="px-3 py-1 rounded-s-md bg-white">
-                <button type="submit" class="px-3 py-1 rounded-e-md text-white bg-gray-900">Add</button>
+        <div class="container mx-auto p-4">
+            <h1 class="text-2xl font-bold">Todos</h1>
+            <form action="/todo" method="POST" class=" my-4 flex justify-center items-center gap-4">
+                <input type="text" name="task" placeholder="Add a new todo" required class="border flex-1 p-2 w-full">
+                <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded">Add Todo</button>
             </form>
-        </div>
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-8">
-            <% categories.forEach(category=> { %>
-                <div class="relative bg-gray-50 border flex justify-center items-center rounded-lg group"
-                    title="Click to edit">
-                    <div class="text-gray-700 p-3">
-                        <form action="/categories/<%= category.id %>/update" method="POST" onchange="submit(this)">
-                            <div class="flex gap-2 justify-center items-center p-2">
-                                <i class="fa-solid fa-tag text-gray-700"></i>
-                                <input type="text" name="category_name" value="<%= category.category_name %>"
-                                    class="inline-block w-full text-center bg-transparent text-gray-700 font-semibold">
+            <ul class="mt-4">
+                <% todos.forEach(todo=> { %>
+                    <li class="flex justify-between items-center border-b py-2">
+
+                        <form action="/todo/<%= todo.id %>/update" method="POST" class="inline" onchange="submit(this)">
+                            <input type="text" name="task" value="<%= todo.task %>"
+                                class="inline-block w-full bg-transparent outline-none">
+                        </form>
+                        <div class="flex justify-center items-center gap-4">
+                            <form action="/todo/<%= todo.id %>/toggle" method="POST" class="inline">
+                                <button type="submit" class="w-6 h-6 bg-gray-200 p-1 rounded"><img
+                                        src="./images/unchecked-checkbox-outline.png" alt=""></button>
+                            </form>
+                            <form action="/todo/<%= todo.id %>/delete" method="POST" class="inline">
+                                <button type="submit" class="w-6 h-6 bg-gray-200 p-1 rounded"><img
+                                        src="./images/trash-outline.svg" alt=""></button>
+                            </form>
+                        </div>
+                    </li>
+                    <% }) %>
+            </ul>
+            <details>
+                <summary class="text-xl font-bold mt-8 text-gray-500">
+                    <%= completedTodos.length %> completed Todos
+                </summary>
+
+                <ul class="mt-4">
+                    <% completedTodos.forEach(todo=> { %>
+                        <li class="flex justify-between items-center border-b py-2">
+                            <span class="<%= todo.is_completed ? 'line-through text-gray-500' : '' %>">
+                                <%= todo.task %>
+                            </span>
+                            <div class="flex justify-center items-center gap-4">
+                                <form action="/todo/<%= todo.id %>/toggle" method="POST" class="inline">
+                                    <button type="submit" class="w-6 h-6 bg-gray-200 p-1 rounded"><img
+                                            src="./images/checked-checkbox-outline.png" alt=""></button>
+                                </form>
+                                <form action="/todo/<%= todo.id %>/delete" method="POST" class="inline">
+                                    <button type="submit" class="w-6 h-6 bg-gray-200 p-1 rounded"><img
+                                            src="./images/trash-outline.svg" alt=""></button>
+                                </form>
                             </div>
-                        </form>
-                    </div>
-                    <div class="absolute -top-2 -right-2 group-hover:block hidden">
-                        <form action="/categories/<%= category.id %>/delete" method="POST">
-                            <button type="submit" class=" text-red-500"><i
-                                    class="fa-solid fa-circle-xmark"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <% }) %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </details>
         </div>
+
+
     </main>
+
+
 
 </body>
 

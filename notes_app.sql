@@ -41,6 +41,16 @@ CREATE TABLE note_categories (
         ON DELETE CASCADE
 );
 
+CREATE TABLE todos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    task VARCHAR(250) NOT NULL,
+    is_completed BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id)
+        REFERENCES users (id)
+        ON DELETE CASCADE
+);
+
 CREATE VIEW active_notes AS
     SELECT 
         *
