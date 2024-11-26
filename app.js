@@ -461,6 +461,21 @@ app.post("/notes/:id/restore-archived", isAuthenticated, async (req, res) => {
   }
 });
 
+// Restore all notes from the Archive
+app.post("/notes/restore-all-archived", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+
+  try {
+    await query("UPDATE notes SET is_archived = FALSE WHERE user_id = ?", [
+      userId,
+    ]);
+    res.redirect("/archive");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // Move a note to the Recycle Bin
 app.post("/notes/:id/delete", isAuthenticated, async (req, res) => {
   const { id } = req.params;
