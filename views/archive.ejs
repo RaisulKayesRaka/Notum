@@ -86,8 +86,11 @@
         <div class="h-10"></div>
         <% if(notes.length!==0) { %>
             <form action="/notes/restore-all-archived" method="post" class="w-full py-4 text-center">
-                <button type="submit" class="text-gray-500 text-center underline"><%= notes.length %> notes archived. Unarchive all notes.</button>
+                <button type="submit" class="text-gray-500 text-center underline">Unarchive all notes.</button>
             </form>
+            <h2 class="text-2xl mb-4 w-11/12 mx-auto font-semibold text-black">
+                <%= notes.length %> notes archived
+              </h2>
             <% }%>
                 <div class="mx-auto w-11/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 

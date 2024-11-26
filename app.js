@@ -511,6 +511,22 @@ app.post("/notes/:id/restore", isAuthenticated, async (req, res) => {
   }
 });
 
+// Restore all notes from the Recycle Bin
+app.post("/notes/restore-all-notes", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+
+  try {
+    await query(
+      "UPDATE notes SET is_deleted = FALSE, deleted_at = NULL WHERE user_id = ?",
+      [userId],
+    );
+    res.redirect("/recycle-bin");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // Permanently delete a note
 app.post("/notes/:id/permanent-delete", isAuthenticated, async (req, res) => {
   const { id } = req.params;
@@ -518,6 +534,19 @@ app.post("/notes/:id/permanent-delete", isAuthenticated, async (req, res) => {
 
   try {
     await query("DELETE FROM notes WHERE id = ? AND user_id = ?", [id, userId]);
+    res.redirect("/recycle-bin");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Permanently delete all notes from the Recycle Bin
+app.post("/notes/delete-all-notes", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+
+  try {
+    await query("DELETE FROM notes WHERE user_id = ? AND is_deleted = TRUE", [userId]);
     res.redirect("/recycle-bin");
   } catch (err) {
     console.error(err);
