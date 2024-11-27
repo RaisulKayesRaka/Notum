@@ -263,7 +263,15 @@ app.get("/categories", isAuthenticated, async (req, res) => {
       "SELECT * FROM categories WHERE user_id = ?",
       [userId],
     );
-    res.render("categories", { user: req.session.user, categories });
+    const popularCategories = await query(
+      "SELECT * FROM popular_categories",
+      [],
+    );
+    res.render("categories", {
+      user: req.session.user,
+      categories,
+      popularCategories,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");

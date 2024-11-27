@@ -92,6 +92,21 @@ CREATE VIEW completed_todos AS
     WHERE
         is_completed = TRUE;
 
+CREATE VIEW popular_categories AS
+SELECT 
+    categories.id AS category_id,
+    categories.category_name,
+    COUNT(note_categories.note_id) AS note_count
+FROM 
+    categories
+LEFT JOIN 
+    note_categories ON categories.id = note_categories.category_id
+GROUP BY 
+    categories.id, categories.category_name
+ORDER BY 
+    note_count DESC
+LIMIT 6;
+
 CREATE 
     TRIGGER  before_note_update
  BEFORE UPDATE ON notes FOR EACH ROW 

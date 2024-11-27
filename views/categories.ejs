@@ -107,6 +107,14 @@
                 </div>
                 <% }) %>
         </div>
+        <h1 class="text-2xl font-bold mt-8">Popular categories</h1>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-8">
+            <% popularCategories.forEach(category=> { %>
+                <div class="border p-3 font-semibold rounded-lg flex justify-center items-center bg-gray-50">
+                    <%= category.category_name %> (<%= category.note_count %>)
+                </div>
+                <% }) %>
+        </div>
     </main>
 
 </body>
