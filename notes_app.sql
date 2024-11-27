@@ -76,6 +76,22 @@ CREATE VIEW deleted_notes AS
     WHERE
         is_deleted = TRUE;
 
+CREATE VIEW uncompleted_todos AS
+    SELECT 
+        id, user_id, task
+    FROM
+        todos
+    WHERE
+        is_completed = FALSE;
+        
+CREATE VIEW completed_todos AS
+    SELECT 
+        id, user_id, task
+    FROM
+        todos
+    WHERE
+        is_completed = TRUE;
+
 CREATE 
     TRIGGER  before_note_update
  BEFORE UPDATE ON notes FOR EACH ROW 

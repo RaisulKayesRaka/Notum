@@ -325,12 +325,12 @@ app.get("/todo", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
   try {
     const todos = await query(
-      "SELECT * FROM todos WHERE user_id = ? AND is_completed = 0",
+      "SELECT * FROM uncompleted_todos WHERE user_id = ?",
       [userId],
     );
 
     const completedTodos = await query(
-      "SELECT * FROM todos WHERE user_id = ? AND is_completed = 1",
+      "SELECT * FROM completed_todos WHERE user_id = ?",
       [userId],
     );
 
@@ -546,7 +546,9 @@ app.post("/notes/delete-all-notes", isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
 
   try {
-    await query("DELETE FROM notes WHERE user_id = ? AND is_deleted = TRUE", [userId]);
+    await query("DELETE FROM notes WHERE user_id = ? AND is_deleted = TRUE", [
+      userId,
+    ]);
     res.redirect("/recycle-bin");
   } catch (err) {
     console.error(err);
