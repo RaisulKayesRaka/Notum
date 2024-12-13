@@ -26,7 +26,7 @@
     <i id="menuToggle" class="fa-solid fa-bars text-gray-700 sm:hidden cursor-pointer" aria-label="Toggle menu"></i>
     <!-- Side Menu -->
     <aside id="sideMenu" class="flex sm:hidden flex-col gap-4 py-20 px-10 fixed -right-48 top-0 bottom-0 w-48 z-50 h-screen bg-gray-100 transition-transform duration-500">
-      <div class="absolute right-6 top-6" id="closeMenu" aria-label="Close menu">
+      <div class="absolute right-6 top-6" id="closeBtn" aria-label="Close Button">
         <i class="fa-solid fa-xmark"></i>
       </div>
       <li><a href="#features" class="hover:text-black" onclick="closeMenu()">Features</a></li>
@@ -136,10 +136,10 @@
     // Side Menu
     const sideMenu = document.querySelector("#sideMenu");
     const menuToggle = document.querySelector("#menuToggle");
-    const closeMenu = document.querySelector("#closeMenu");
+    const cloeBtn = document.querySelector("#closeBtn");
 
     menuToggle.addEventListener("click", openMenu);
-    closeMenu.addEventListener("click", closeMenu);
+    closeBtn.addEventListener("click", closeMenu);
 
     function openMenu() {
       sideMenu.style.transform = "translateX(-12rem)";
